@@ -1,0 +1,196 @@
+╔══════════════════════════════════════════════════════════╗
+║                                                          ║
+║         HINDI TYPING MASTER - हिंदी टाइपिंग मास्टर      ║
+║                                                          ║
+║         HOW TO RUN - SUPER SIMPLE INSTRUCTIONS          ║
+║                                                          ║
+╚══════════════════════════════════════════════════════════╝
+
+
+🚀 QUICK START (3 STEPS)
+═══════════════════════════════════════════════════════════
+
+1️⃣  Open Terminal/Command Prompt
+
+2️⃣  Navigate to this folder:
+    cd /home/mandar/data-storage/Vimal/Hinditypemaster/codebase
+
+3️⃣  Run ONE of these commands:
+
+    ▶️  Linux/Mac:    ./run.sh
+    
+    ▶️  Windows:      run.bat
+    
+    ▶️  Manual:       python app.py
+
+
+4️⃣  Open your web browser to:
+    👉 http://localhost:5000
+
+
+That's it! The app is now running! 🎉
+
+
+📝 FIRST TIME USE
+═══════════════════════════════════════════════════════════
+
+1. Click "Register" to create an account
+2. Enter a username and password (stored locally)
+3. Choose your keyboard layout (InScript recommended)
+4. Click "Lessons" and start with Lesson 1
+5. Begin typing and watch your progress!
+
+
+⚙️  REQUIREMENTS
+═══════════════════════════════════════════════════════════
+
+✅ Python 3.7 or higher (check: python3 --version)
+✅ That's it! Everything else is included.
+
+
+🔧 IF YOU GET ERRORS
+═══════════════════════════════════════════════════════════
+
+Problem: "pip not found" or "module not found"
+Solution: Run this first:
+    pip install -r requirements.txt
+
+Problem: "Port 5000 in use"
+Solution: Change port in app.py (line 587):
+    app.run(debug=True, host='0.0.0.0', port=5001)
+
+Problem: Hindi text not showing
+Solution: Install Hindi fonts on your system:
+    - Windows: Already included (Mangal)
+    - Linux: sudo apt-get install fonts-indic
+    - Mac: Install from Font Book
+
+Problem: Database errors
+Solution: Delete typing_master.db and restart
+
+
+✅ VERIFY INSTALLATION
+═══════════════════════════════════════════════════════════
+
+Run this to check if everything is working:
+    python3 verify_installation.py
+
+
+📚 MORE HELP
+═══════════════════════════════════════════════════════════
+
+📖 Quick Start Guide:     QUICKSTART.md
+📖 Complete Manual:       README.md
+📖 All Features:          FEATURES.md
+📖 Technical Details:     PROJECT_SUMMARY.md
+
+
+🎯 WHAT YOU'LL LEARN
+═══════════════════════════════════════════════════════════
+
+Week 1: Basic characters (स्वर, व्यंजन)
+Week 2: Words and matras
+Week 3: Sentences and speed building
+Week 4: Advanced typing and tests
+
+Target: 40+ WPM with 95% accuracy in 1 month!
+
+
+🌟 KEYBOARD LAYOUTS
+═══════════════════════════════════════════════════════════
+
+1. InScript - Standard Indian layout (recommended)
+2. Remington - Traditional typewriter layout
+3. Transliteration - Type in English, get Hindi
+   Example: "namaste" → "नमस्ते"
+
+
+📊 FEATURES
+═══════════════════════════════════════════════════════════
+
+✅ 15+ lessons (beginner to advanced)
+✅ Real-time WPM and accuracy tracking
+✅ Virtual keyboard with highlighting
+✅ Error heatmap and analytics
+✅ Leaderboard system
+✅ Timed tests (1, 2, 5 minutes)
+✅ 100% offline - no internet needed
+✅ Complete privacy - all data local
+✅ Free forever - no subscriptions
+
+
+💡 PRO TIPS
+═══════════════════════════════════════════════════════════
+
+• Practice 15-30 minutes daily
+• Focus on accuracy first, speed comes later
+• Use proper finger placement (home row)
+• Don't look at the keyboard
+• Review your error heatmap after each session
+• Complete each lesson before moving forward
+
+
+🔒 PRIVACY
+═══════════════════════════════════════════════════════════
+
+✅ All data stays on YOUR computer
+✅ No internet connection needed
+✅ No tracking or analytics
+✅ No external API calls
+✅ Complete privacy guaranteed
+
+
+❓ COMMON QUESTIONS
+═══════════════════════════════════════════════════════════
+
+Q: Do I need internet?
+A: No! Works 100% offline after installation.
+
+Q: Is it really free?
+A: Yes! Completely free, forever. No hidden costs.
+
+Q: Can I use it for exams?
+A: Yes! Perfect for government typing tests.
+
+Q: Which keyboard layout should I use?
+A: InScript for beginners, Transliteration is easiest to start.
+
+Q: Can I add my own lessons?
+A: Yes! See README.md for instructions.
+
+Q: Is my data safe?
+A: Yes! Everything stored locally on your computer.
+
+
+🎉 SUCCESS METRICS
+═══════════════════════════════════════════════════════════
+
+Beginner:      20-30 WPM
+Intermediate:  30-50 WPM  
+Advanced:      50-70 WPM
+Expert:        70+ WPM
+
+You'll get there with daily practice! 💪
+
+
+📞 NEED MORE HELP?
+═══════════════════════════════════════════════════════════
+
+1. Read QUICKSTART.md (detailed guide)
+2. Read README.md (complete manual)
+3. Run verify_installation.py (check setup)
+4. Check browser console (F12 key)
+
+
+╔══════════════════════════════════════════════════════════╗
+║                                                          ║
+║              शुभ टाइपिंग! HAPPY TYPING!                 ║
+║                                                          ║
+║         Start your journey to Hindi typing mastery!     ║
+║                                                          ║
+╚══════════════════════════════════════════════════════════╝
+
+
+Last Updated: November 2025
+Version: 1.0
+License: Free and Open Source

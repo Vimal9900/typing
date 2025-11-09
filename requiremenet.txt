@@ -1,0 +1,207 @@
+You can build a full-featured Hindi typing-master app that supports Unicode Devanagari (e.g., Mangal) and legacy fonts/encodings like Kruti Dev, includes lessons, tests, analytics, multiplayer/leaderboards, offline mode, and all the UX a learner would need. Below I’ll give a practical, ready-to-implement plan: decisions you should make, architecture options, feature set (MVP → advanced), implementation notes for fonts & keyboard mappings (important), UI/UX ideas, and next steps you can ask me to do (wireframes, sample code, lesson content, etc.).
+
+Key technical reality you must accept
+
+Mangal (and other Unicode Devanagari fonts) work with standard Unicode input methods (InScript, transliteration-based IME, Google-style etc.). This is the modern recommended approach.
+
+Kruti Dev is a legacy, non-Unicode (ASCII-encoded) font family. To support Kruti Dev you either:
+
+ship/use a Kruti Dev font file and accept legacy/ASCII text encoded for that font, or
+
+implement a converter between Kruti-Dev-encoded text and Unicode Devanagari (mapping tables exist). Many user content sources use Kruti Dev, so a converter is essential if you want import/export or mixed content support.
+
+Because Kruti Dev is often used with Remington-style keyboards, your app should support multiple keyboard layouts (InScript, Remington, Remap for Kruti Dev, transliteration).
+
+High-level product idea (what learners expect)
+
+Onboarding (choose keyboard layout + preferred font)
+
+Structured lessons: basics → words → phrases → sentences → paragraphs → practice passages (news, literature)
+
+Drills: speed drills, accuracy drills, common-mistake drills (e.g., conjuncts, matras)
+
+Tests & certificates: timed WPM & accuracy tests
+
+Analytics: WPM, accuracy, error heatmap (which keys, which characters), progress over time
+
+Personalization: adaptive difficulty (more practice on error-prone characters)
+
+Social: leaderboards, class/groups, contests
+
+Multi-platform: Web PWA (desktop + mobile), and optionally native desktop (Electron) or Android app
+
+Accessibility: large fonts, screen-reader friendly (where possible), simple contrast
+
+Core features (MVP → Advanced)
+
+MVP
+
+User signup/profile, basic progress tracking
+
+Lessons: keyboard visualization + exercises, graded tests
+
+Virtual keyboard overlay (shows key mapping for chosen layout)
+
+Support for Unicode (Mangal) input via:
+
+transliteration IME (type in Roman → convert) and/or
+
+InScript virtual keyboard + hardware keyboard input
+
+Kruti Dev support via import/export + on-the-fly converter
+
+WPM & accuracy calculation + immediate feedback (highlight mistakes)
+
+Store user stats in DB
+
+Advanced
+
+Adaptive lesson engine (focus on weak characters)
+
+Error heatmaps and per-character analytics
+
+Multiplayer races (real-time via WebSockets)
+
+Lessons authored by admins; allow user-created lessons
+
+PWA offline mode for practice without internet
+
+Integration with schools / teacher dashboards
+
+Certificates and printable reports
+
+Gamification, badges, streaks
+
+Important implementation details & pitfalls
+
+Fonts & Encoding
+
+Prefer Unicode (Devanagari) internally — it’s future-proof and interoperable.
+
+To support Kruti Dev:
+
+either accept Kruti Dev input as-is (store ASCII-encoded strings and serve with Kruti Dev font) — but that makes interoperability hard; or
+
+provide a robust converter (KrutiDev ↔ Unicode Devanagari). Build/import mapping tables for common glyphs. Validate converter on a corpus of sample texts because mappings can be many-to-one.
+
+License check: some legacy fonts may be proprietary — confirm licensing before bundling.
+
+Input methods
+
+Offer multiple input options:
+
+InScript layout (standard Devanagari layout) — show visual keyboard and support hardware keypresses.
+
+Remington/Kruti Dev mapping for legacy users.
+
+Transliteration IME (popular: user types “namaste” → output “नमस्ते”). This is beginner-friendly.
+
+Virtual on-screen keyboard so mobile/desktop learners can click keys.
+
+Capture real keystrokes and map them to glyphs for analytics (careful about IME composition events in browsers — handle compositionstart/compositionend correctly).
+
+Measuring typing performance
+
+Compute WPM using Unicode character counts (standard: 5 chars = 1 word) OR use syllable-based method for Hindi if you prefer — but standard 5-char WPM is accepted.
+
+Accuracy: characters correct / total typed; but also measure keystroke-level errors and character-level errors for Devanagari conjuncts/matra mistakes.
+
+Offer “per-character error rate” and show heatmaps.
+
+Backend & Analytics
+
+Track per-session events: raw typed stream, timestamps, errors, corrections, layout chosen.
+
+Store aggregated stats for progress charts.
+
+Provide teacher/admin dashboard (view class progress, export CSV).
+
+Security & Privacy
+
+If you store typed content, give users option to keep practice private.
+
+For education deployments: comply with local privacy rules (e.g., don't collect unnecessary PII).
+
+Suggested tech stack (practical and standard)
+
+Frontend: React + TypeScript (or plain React), tailwindcss for quick UI. Virtual keyboard + composition handling in JS.
+
+Backend: Node.js + Express (or Django/Flask), REST + WebSockets for real-time races.
+
+Database: Postgres for user data and analytics; Redis for session caching / leaderboard.
+
+Optional: Firebase or Supabase if you prefer managed auth + realtime + storage.
+
+Packaging: Web: PWA; Desktop: Electron wrapper if you want desktop distribution; Android: use React Native or Flutter if native mobile matters.
+
+Deployment: any cloud provider (Vercel/Netlify for frontend, Heroku/Render/AWS for backend).
+
+Converter / Libraries: implement KrutiDev↔Unicode mapping in a server module (Node/Python). For transliteration IME consider integrating an existing library (or implement a simple deterministic mapping).
+
+Example lesson flow (UX)
+
+Learner picks layout: InScript / Kruti Dev / Transliteration.
+
+Short tutorial: show which keys produce which matra/syllable.
+
+Practice: short phrases highlighting the target characters (repeat until accuracy threshold reached).
+
+Drill: speed test for 1 minute (shows WPM and accuracy).
+
+Review: heatmap + list of most-mistyped keys + suggested exercises.
+
+Progress: badge earned if accuracy > X and WPM > Y.
+
+Data model sketch (simplified)
+
+users(id, name, email, layout_pref, created_at)
+
+sessions(id, user_id, lesson_id, raw_input, wpm, accuracy, errors_json, created_at)
+
+lessons(id, title, content_unicode, tags, difficulty)
+
+stats_aggregates(user_id, metric, value, date)
+
+Business/monetization ideas
+
+Freemium: basic lessons free, advanced lessons + certificates paid
+
+School packages (teacher dashboard + bulk licensing)
+
+Ads (careful — avoid intrusive ads in a learning app)
+
+UX/UI suggestions
+
+Use large Devanagari fonts by default (Mangal or system fallback)
+
+Show live preview text in both Unicode and (optionally) Kruti Dev rendering when converter used
+
+Provide immediate color-coded feedback: green correct, red incorrect, subtle underline for half-typed conjuncts
+
+Mobile-first design for learners who use phones
+
+Testing & validation
+
+Test with both Unicode and legacy Kruti Dev corpora.
+
+Ask native Hindi typists to beta-test for mapping correctness.
+
+Validate the Kruti↔Unicode converter on multiple real-world documents (invoices, reports, exam papers).
+
+Legal / Licensing note
+
+Verify font licensing before bundling fonts. If bundling Kruti Dev TTF, ensure you have the right to distribute.
+
+Next practical steps I can do for you (pick any, I’ll deliver now)
+
+Produce a detailed technical spec (API endpoints, DB schema, component breakdown).
+
+Create UI wireframes / clickable mockups (low-fi).
+
+Draft the lesson curriculum (beginner → intermediate → advanced drills).
+
+Provide a sample front-end component (React) for a virtual Devanagari keyboard + composition handling.
+
+Write a Kruti Dev ↔ Unicode converter (mapping table + working code snippet).
+
+Help create test cases and validation corpus for converter and tutors.
